@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Slider;
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 
-class SliderSeeder extends Seeder
+class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,6 @@ class SliderSeeder extends Seeder
      */
     public function run()
     {
-  
-        Slider::factory()->count(10)->create();
-
+        Post::factory()->count(5)->create();
     }
 }

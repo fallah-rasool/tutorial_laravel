@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Slider;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SliderFactory extends Factory
+class PostFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Slider::class;
+    protected $model = Post::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,9 @@ class SliderFactory extends Factory
     public function definition()
     {
         return [
-            'caption'=>$this->faker->title,
-            'image'=> $this->faker->imageUrl,
-            'price'=>$this->faker->numberBetween(1000,3000),
-            'link'=>$this->faker->url,
-            'publish'=>$this->faker->numberBetween(0,1),
+            'title'=>$this->faker->title,
+'body'=>$this->faker->text,
+'active'=>$this->faker->biasedNumberBetween(0,1),
         ];
     }
 }
