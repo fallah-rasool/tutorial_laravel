@@ -2,84 +2,156 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+
+       // $allSlider = Slider::all(); 
+
+       
+
+        // $allSlider = Slider::all()->sortBy("id"); 
+
+        // $allSlider = Slider::orderBy('id')->get(); 
+        // select * from `sliders` order by `id` asc
+
+        $allSlider = Slider::orderBy('id', 'desc')->get(); 
+        // select * from `sliders` order by `id` desc
+
+        // $allSlider = Slider::orderByDesc('title')->get();
+        // select * from `sliders` order by `title` desc
+
+
+        //$allSlider=Slider::find([1,3,5]);
+        
+        //$allSlider=Slider::findOrfail(1000);
+
+        //update
+            // Slider::findOrfail(50)->update([
+            //     'title'=>'raza',
+            //     'caption'=>'razaeeeeeeeeee',
+            //     'image'=>'raza.jpg',
+            //     'status'=>1,
+            // ]);
+
+        //delete
+            // Slider::destroy(51);
+
+
+
+        /*چاپ تعداد مشخصی از تاپل های رابطه */
+
+        // $slider=Slider::chunk(3,function($collect){
+        //     foreach($collect as $item ){
+        //         echo "<div style='margin: 0 auto; width: 800px; border: 1px solid;
+        //         margin-bottom: 5px; padding: 5px 10px;'>";
+        //             echo "title : ".$item->title."</br></br>";
+        //             echo "caption : ".$item->caption."</br></br>";
+        //             echo "image : ".$item->image."</br></br>";
+        //             echo "status : ".$item->status."</br></br>";
+        //         echo "</div>";           
+        //     }
+        //     echo "<hr style=' border: 1px solid;'>";
+        // });
+
+        /* ایجاد سطر جدید  */
+
+        //   $slider=new Slider();
+        //   $slider->title="rasool";
+        //   $slider->caption="rasool1111111111111111";
+        //   $slider->image="rasool.jpg";
+        //   $slider->status=1;
+        //   $slider->save();
+
+
+  // return $allSlider;
+    return view("admin.slider.index",compact('allSlider'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+      return view('admin.slider.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+       $file=$request->file('image');
+
+       $nameimage="";
+
+       if(!empty($file)){
+            $nameimage=time().".".$file->getClientOriginalExtension();
+            $file->move('images/slider',$nameimage);
+       }
+
+       Slider::create([
+          "title"=>$request->title,
+          "caption"=>$request->caption,
+          "image"=>$nameimage,
+          "status"=>$request->status,
+       ]);
+       
+      return redirect()->route('slider.index');
+
+    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
     public function show(Slider $slider)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Slider $slider)
     {
-        //
+        $slider=Slider::findOrFail($slider->id);
+
+        return view('admin.slider.edit',compact('slider'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Slider $slider)
     {
-        //
+        
+        $slider=Slider::findOrfail($slider->id);
+        $file=$request->file('image');
+        $nameImage="";
+        if(!empty($file)){
+            unlink('images/slider/'.$slider->image);
+
+            $nameImage=time().$file->getClientOriginalExtension();
+
+            $file->move('images/slider', $nameImage);
+        }else{
+            $nameImage=$slider->image;
+        }
+
+
+        Slider::where('id',$slider->id)->update([
+            "title"=>$request->title,
+            "caption"=>$request->caption,
+            "image"=> $nameImage,
+            "status"=>$request->status,
+        ]);
+
+
+        return redirect()->route('slider.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Slider  $slider
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Slider $slider)
     {
-        //
+      $Slider=Slider::findOrfail($slider->id);
+      $nameImage=$slider->image;
+     // dd($nameImage);
+      unlink('images/slider/'.$nameImage);
+      Slider::destroy($slider->id);
+      return back();
     }
 }

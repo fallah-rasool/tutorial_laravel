@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +23,7 @@ Route::get('/', function () {
 
 Route::resource('post',PostController::class);
 Route::resource('image',PostController::class);
+Route::resource('slider',SliderController::class);
 
 
 
