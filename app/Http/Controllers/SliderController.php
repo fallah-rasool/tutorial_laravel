@@ -12,7 +12,7 @@ class SliderController extends Controller
     public function index()
     {
 
-       // $allSlider = Slider::all(); 
+        $allSlider = Slider::all(); 
 
        
 
@@ -69,7 +69,7 @@ class SliderController extends Controller
         //   $slider->status=1;
         //   $slider->save();
 
-        $allSlider=Slider::paginate(2);
+      //  $allSlider=Slider::paginate(5);
 
 
   // return $allSlider;
