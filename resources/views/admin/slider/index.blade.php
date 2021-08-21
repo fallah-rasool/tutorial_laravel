@@ -56,6 +56,7 @@
                     <h4 class="alert alert-danger"> not data</h4>
                 @endforelse
             </table>
+            {{ $allSlider->links() }}
         </section>
     </section>
 

@@ -21,7 +21,7 @@ class SliderController extends Controller
         // $allSlider = Slider::orderBy('id')->get(); 
         // select * from `sliders` order by `id` asc
 
-        $allSlider = Slider::orderBy('id', 'desc')->get(); 
+        //$allSlider = Slider::orderBy('id', 'desc')->get(); 
         // select * from `sliders` order by `id` desc
 
         // $allSlider = Slider::orderByDesc('title')->get();
@@ -68,6 +68,8 @@ class SliderController extends Controller
         //   $slider->image="rasool.jpg";
         //   $slider->status=1;
         //   $slider->save();
+
+        $allSlider=Slider::paginate(2);
 
 
   // return $allSlider;

@@ -50,13 +50,13 @@ class PostController extends Controller
             // return $image;
 
 
-        //image كه مربوط به سطر شماره 2 از جدول post ما
+        // را بهصورت یک شی دریافت می کنیمimage كه مربوط به سطر شماره 2 از جدول post ما
 
-            // $post=Image::findorfail(2)->post;
+            //  $post=Image::findorfail(2)->post;
             // return $post;
 
-            //صورت يك فايل آرايه داده ها را بيرون مي كشيم
-            // $post=Image::findorfail(2)->post()->get();
+            //بصورت يك فايل آرايه داده ها را بيرون مي كشيم
+           //$post=Image::findorfail(2)->post()->get();
             // return $post;
 
             //براي بيرون كشيد يك فيلد چه هنگامي كه فايل ما يك جيسون است يا ارايه به اين صورت عمل مي كنيم
