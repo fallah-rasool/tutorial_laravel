@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\CommenteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SesstionController;
 use App\Http\Controllers\SliderController;
@@ -27,6 +27,25 @@ Route::resource('image',PostController::class);
 Route::resource('slider',SliderController::class);
 
 Route::resource('sesstion',SesstionController::class);
+
+
+
+
+// Route::middleware('isAdmin')->group(function(){
+
+//     Route::resource('/comment',CommenteController::class)->middleware('chaek');
+
+// });
+
+
+// Route::middleware('isAdmin','chaek')->group(function(){
+
+//     Route::resource('/comment',CommenteController::class);
+
+// });
+
+Route::resource('comment',CommenteController::class)->middleware('isAdmin:admin,manage');
+
 
 
 

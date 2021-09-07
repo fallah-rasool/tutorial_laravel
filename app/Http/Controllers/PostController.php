@@ -39,7 +39,7 @@ class PostController extends Controller
            
 
 
-        ////////////////////////////////////////
+        
 
 
     /** واکشی داده ها از جدول image */
