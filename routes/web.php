@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SesstionController;
 use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::resource('post',PostController::class);
 Route::resource('image',PostController::class);
 Route::resource('slider',SliderController::class);
 
+Route::resource('sesstion',SesstionController::class);
 
 
 
